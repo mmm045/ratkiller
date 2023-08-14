@@ -1,0 +1,10 @@
+.upgradeleft {
+    position: absolute;
+    left: 15%;
+}
+.upgrade {
+    position: absolute;
+    left: 5%;
+    border-style: solid;
+    border-radius: 10px;
+}

@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, width=device-width">
+
+    <!-- http://getbootstrap.com/docs/5.1/ -->
+    <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" rel="stylesheet">
+    <script crossorigin="anonymous" src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"></script>
+    <link href="/css/styles.css" rel="stylesheet">
+    <script>
+        let rats = 1;
+        let killmulti = 1;
+        let cash = 100000000000;
+        let cashmulti = 1;
+        let clickmulti = 1;
+        let shop = {
+            "citizen": { lvl: 0, price: 10, factor: 1.5, rate: 1, id: 1 },
+            "boot": { lvl: 0, price: 50, factor: 1.5, rate: 5, id: 2, max: 1 },
+            "dennis": { lvl: 0, price: 250, factor: 1.5, rate: 25, id: 3 },
+            "rpg": { lvl: 0, price: 1000, factor: 1.75, rate: 100, id: 4 },
+            "cool": { lvl: 0, price: 50000, factor: 2.25, rate: 2500, id: 6 },
+            "great": { lvl: 0, price: 100000, factor: 2.25, rate: 10000, id: 7 },
+            "amazing": { lvl: 0, price: 500000, factor: 2.25, rate: 25000, id: 8 },
+            "bigger": { lvl: 0, price: 1000, factor: 5, id: 9 },
+            "fearmon": { lvl: 0, price: 500, factor: 5, id: 10 },
+            "click": { lvl: 0, price: 1000, factor: 10, id: 11, max: 3 },
+            "humon": { lvl: 0, price: 1000000, factor: 10, id: 12, max: 3 }
+        };
+        function subtractrats(manual, specrate) {
+            if (manual == false) {
+                rats -= specrate * killmulti;
+                cash += specrate * cashmulti * killmulti;
+            }
+            else {
+                rats -= clickmulti * killmulti;
+                cash += clickmulti * cashmulti * killmulti;
+                playratnoise();
+            }
+            document.getElementById('ratcount').innerHTML = 'Rats: ' + numberWithCommas(rats)
+            document.getElementById('cashcount').innerHTML = 'Cash: $' + numberWithCommas(cash)
+            if (rats <= 0)
+            {
+                window.location.replace("winner.html")
+            }
+        }
+
+        function numberWithCommas(x) {
+            return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+
+        function playratnoise() {
+            let rarechance = 15;
+            let soundchoose = Math.floor((Math.random() * rarechance) + 1);
+            if (soundchoose <= rarechance - 1) {
+                soundchoose = Math.floor((Math.random() * 15) + 1);
+                var ratnoise = new Audio(src = 'sounds/rat' + soundchoose + '.mp3');
+            }
+            else {
+                soundchoose = Math.floor((Math.random() * 3) + 16);
+                var ratnoise = new Audio(src = 'sounds/rat' + soundchoose + '.mp3');
+            }
+            ratnoise.play();
+        }
+
+        function upgrade(purchase) {
+            let id = purchase['id']
+            if (cash >= purchase['price']) {
+                purchase['lvl']++;
+                cash -= purchase['price'];
+                purchase['price'] = scaleprice(purchase['factor'], purchase['price']);
+                document.getElementById('level' + id).innerHTML = 'Own: ' + purchase['lvl']
+                document.getElementById('cost' + id).innerHTML = '$' + numberWithCommas(purchase['price'])
+                document.getElementById('cashcount').innerHTML = 'Cash: $' + numberWithCommas(cash)
+                if (id <= 8) {
+                    setInterval(subtractrats, 1000, false, purchase['rate']);
+                }
+                else {
+                    if (id == 9) {
+                        killmulti++;
+                    }
+                    if (id == 10) {
+                        cashmulti++;
+                    }
+                    if (id == 11) {
+                        clickmulti = clickmulti * 10;
+                    }
+                    if (id == 12) {
+                        killmulti = killmulti * 10;
+                    }
+                }
+                if (purchase['lvl'] >= purchase['max']) {
+                    document.getElementById('cost' + id).innerHTML = '\0'
+                    document.getElementById('level' + id).innerHTML = 'MAX!'
+                    const element = document.getElementById('btn' + id);
+                    element.remove();
+                }
+            }
+        }
+
+        function scaleprice(factor, current) {
+            current = current * factor;
+            current = (Math.floor(current / 5) * 5);
+            return current;
+        }
+
+    </script>
+    <title>
+        Rat Killer
+    </title>
+</head>
+
+<body style="background-color: #0099ff;">
+    <h4 class="text-center">
+        THERE ARE SO MANY RATS AND THEY ALL HAVE THE BUBONIC PLAGUE AND THEY'RE GOING TO KILL EVERYONE IN NEW YORK
+        CITY!!!
+    </h4>
+    <h1
+        style="text-align: center; font-family:'Times New Roman', Times, serif; font-weight: bold; font-size: 60px; color: aquamarine; font-style: italic;">
+        KILL THE RATS!!!!!
+    </h1>
+    <div class="text-center">
+        <input type="image" class src="https://i.postimg.cc/pTSVYD11/imageedit-16-6827671711.png"
+            style="cursor: pointer;" onclick="subtractrats(true)">
+    </div>
+    <h2 id="ratcount" class="text-center" style="font-weight: bold">Rats: 10,000,000,000</h2>
+    <h3 id="cashcount" class="text-center" style="font-weight: bold">Cash: $0</h3>
+    <!--Helpers-->
+    <hr style="border: 2px solid black">
+    <h4 class="text-center">Helpers</h4>
+    <hr style="border: 2px solid black">
+    <div class="text-center"
+        style="position: absolute; left: 5%; border-style: solid; border-radius: 10px; width: 35%; padding-inline: 20px;">
+        <h3>Random Citizen</h3>
+        <h5>Likes to stomp on rats.</h5>
+        <h6 id="level1">Own: 0</h6>
+        <h5 style="color: greenyellow;" id="cost1">$10</h5>
+        <button style="border-radius: 10px;" id="btn1" onclick="upgrade(shop['citizen'])">Buy</button>
+    </div>
+    <div class="text-center"
+        style="position: absolute; left: 60%; border-style: solid; border-radius: 10px; width: 35%; padding-inline: 20px;">
+        <h3>Person w/ Big Boot</h3>
+        <h5>Can stomp on more rats</h5>
+        <h6 id="level2">Own: 0</h6>
+        <h5 style="color: greenyellow;" id="cost2">$50</h5>
+        <button style="border-radius: 10px" id="btn2" onclick="upgrade(shop['boot'])">Buy</button>
+    </div>
+    <div class="text-center"
+        style="position: absolute; left: 5%; bottom:-225px; border-style: solid; border-radius: 10px; width: 35%; padding-inline: 20px;">
+        <h3>Dennis</h3>
+        <h5>The biggest, spikiest boot there is. Hired to assassinate rats.</h5>
+        <h6 id="level3">Own: 0</h6>
+        <h5 style="color: greenyellow;" id="cost3">$250</h5>
+        <button style="border-radius: 10px" id="btn3" onclick="upgrade(shop['dennis'])">Buy</button>
+    </div>
+    <div class="text-center"
+        style="position: absolute; left: 60%; bottom:-225px; border-style: solid; border-radius: 10px; width: 35%; padding-inline: 20px;">
+        <h3>Person with RPG</h3>
+        <h5>Illegal? Possibly. Effective? Absolutely.</h5>
+        <h6 id="level4">Own: 0</h6>
+        <h5 style="color: greenyellow;" id="cost4">$1,000</h5>
+        <button style="border-radius: 10px" id="btn4" onclick="upgrade(shop['rpg'])">Buy</button>
+    </div>
+    <div class="text-center"
+        style="position: absolute; left: 5%; bottom:-440px; border-style: solid; border-radius: 10px; width: 35%; padding-inline: 20px;">
+        <h3>Basic Exterminator</h3>
+        <h5>They do a decent enough job.</h5>
+        <h6 id="level5">Own: 0</h6>
+        <h5 style="color: greenyellow;" id="cost5">$10,000</h5>
+        <button style="border-radius: 10px" id="btn5" onclick="upgrade(shop['basic'])">Buy</button>
+    </div>
+    <div class="text-center"
+        style="position: absolute; left: 60%; bottom:-440px; border-style: solid; border-radius: 10px; width: 35%; padding-inline: 20px;">
+        <h3>Cool Exterminator</h3>
+        <h5>Only a little better cause he's cooler</h5>
+        <h6 id="level6">Own: 0</h6>
+        <h5 style="color: greenyellow;" id="cost6">$50,000</h5>
+        <button style="border-radius: 10px" id="btn6" onclick="upgrade(shop['cool'])">Buy</button>
+    </div>
+    <div class="text-center"
+        style="position: absolute; left: 5%; bottom: -650px; border-style: solid; border-radius: 10px; width: 35%; padding-inline: 20px;">
+        <h3>Great Exterminator</h3>
+        <h5>They know a thing or two about rats.</h5>
+        <h6 id="level7">Own: 0</h6>
+        <h5 style="color: greenyellow;" id="cost7">$100,000</h5>
+        <button style="border-radius: 10px" id="btn7" onclick="upgrade(shop['great'])">Buy</button>
+    </div>
+    <div class="text-center"
+        style="position: absolute; left: 60%; bottom:-650px; border-style: solid; border-radius: 10px; width: 35%; padding-inline: 20px;">
+        <h3>Amazing Exterminator</h3>
+        <h5>This is THE guy.</h5>
+        <h6 id="level8">Own: 0</h6>
+        <h5 style="color: greenyellow;" id="cost8">$500,000</h5>
+        <button style="border-radius: 10px" id="btn8" onclick="upgrade(shop['amazing'])">Buy</button>
+    </div>
+    <br><br>
+    <!--Upgrades-->
+    <div class="text-center" style="position:relative; bottom: -800px;">
+        <hr style="border: 2px solid black; width: 100%;">
+        <h4 class="text-center">Upgrades</h4>
+        <hr style="border: 2px solid black; width: 100%;">
+    </div>
+    <div class="text-center"
+        style="position: absolute; left: 5%; border-style: solid; bottom: -975px; border-radius: 10px; width: 35%; padding-inline: 20px;">
+        <h3>BIGGER Weaponry</h3>
+        <h5>Bigger = Better</h5>
+        <h6 id="level9">Own: 0</h6>
+        <h5 style="color: greenyellow;" id="cost9">$100</h5>
+        <button style="border-radius: 10px;" id="btn9" onclick="upgrade(shop['bigger'])">Buy</button>
+    </div>
+    <div class="text-center"
+        style="position: absolute; left: 60%; border-style: solid; bottom: -975px; border-radius: 10px; width: 35%; padding-inline: 20px;">
+        <h3>Fear Mongering</h3>
+        <h5>Without us, you would all be dead. Now pay up.</h5>
+        <h6 id="level10">Own: 0</h6>
+        <h5 style="color: greenyellow;" id="cost10">$1,000</h5>
+        <button style="border-radius: 10px" id="btn10" onclick="upgrade(shop['fearmon'])">Buy</button>
+    </div>
+    <div class="text-center"
+        style="position: absolute; left: 5%; border-style: solid; bottom: -1250px; border-radius: 10px; width: 35%; padding-inline: 20px;">
+        <h3>Click Embiggenator</h3>
+        <h5>Wouldn't want to wear out those old, tired fingers of yours</h5>
+        <h6 id="level11">Own: 0</h6>
+        <h5 style="color: greenyellow;" id="cost11">$1,000</h5>
+        <button style="border-radius: 10px" id="btn11" onclick="upgrade(shop['click'])">Buy</button>
+    </div>
+    <div class="text-center"
+        style="position: absolute; left: 60%; border-style: solid; bottom: -1250px; border-radius: 10px; width: 35%; padding-inline: 20px;">
+        <h3>Weapon HUMONGINATOR</h3>
+        <h5>HUMUNGOUS weapons.</h5>
+        <h6 id="level12">Own: 0</h6>
+        <h5 style="color: greenyellow;" id="cost12">$1,000,000</h5>
+        <button style="border-radius: 10px" id="btn12" onclick="upgrade(shop['humon'])">Buy</button>
+    </div>
+</body>
+
+</html>
