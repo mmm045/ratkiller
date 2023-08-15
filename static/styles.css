@@ -1,0 +1,26 @@
+.upgradeleft {
+    position: absolute;
+    left: 5%;
+    border-style: solid;
+    border-radius: 10px;
+    width: 35%;
+    padding-inline: 20px;
+}
+
+.upgraderight {
+    position: absolute;
+    left: 60%;
+    border-style: solid;
+    border-radius: 10px;
+    width: 35%;
+    padding-inline: 20px;
+}
+
+hr {
+    border: 2px solid black;
+    width: 100%;
+}
+
+button {
+    border-radius: 10px;
+}
