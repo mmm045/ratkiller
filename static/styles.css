@@ -2,25 +2,32 @@
     position: absolute;
     left: 5%;
     border-style: solid;
-    border-radius: 10px;
+    border-radius: 1em;
     width: 35%;
-    padding-inline: 20px;
+    padding-inline: 1.25em;
+    font-size: 1vw;
 }
 
 .upgraderight {
     position: absolute;
     left: 60%;
     border-style: solid;
-    border-radius: 10px;
+    border-radius: 1em;
     width: 35%;
-    padding-inline: 20px;
+    padding-inline: 1.25em;
+    font-size: 1vw;
+}
+
+body {
+    font-size: 100%
 }
 
 hr {
-    border: 2px solid black;
+    border: .125em solid black;
     width: 100%;
 }
 
 button {
-    border-radius: 10px;
+    border-radius: .625em;
+    font-size: 1em;
 }
