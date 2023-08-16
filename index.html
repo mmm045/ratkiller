@@ -1,141 +1,144 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- http://getbootstrap.com/docs/5.1/ -->
-    <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
-        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" rel="stylesheet">
-    <script crossorigin="anonymous" src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"></script>
-    <link rel="stylesheet" href="static/styles.css">
-    <script src="functions.js"></script>
-    <title>
-        Rat Killer
-    </title>
-</head>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- http://getbootstrap.com/docs/5.1/ -->
+        <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+            integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" rel="stylesheet">
+        <script crossorigin="anonymous"
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"></script>
+        <link rel="stylesheet" href="static/styles.css">
+        <script src="functions.js"></script>
+        <title>
+            Rat Killer
+        </title>
+    </head>
 
-<body style="background-color: #0099ff;">
-    <h4 class="text-center" style="padding-inline: 3em">
-        THERE ARE SO MANY RATS AND THEY ALL HAVE THE BUBONIC PLAGUE AND THEY'RE GOING TO KILL EVERYONE IN NEW YORK
-        CITY!!!
-    </h4>
-    <h1
-        style="text-align: center; font-family:'Times New Roman', Times, serif; font-weight: bold; font-size: 60px; color: aquamarine; font-style: italic;">
-        KILL THE RATS!!!!!
-    </h1>
-    <div class="text-center">
-        <input type="image" class src="https://i.postimg.cc/pTSVYD11/imageedit-16-6827671711.png"
-            style="cursor: pointer;" onclick="subtractrats(true)">
-    </div>
-    <h2 id="ratcount" class="text-center" style="font-weight: bold">Rats: 10,000,000,000</h2>
-    <h3 id="cashcount" class="text-center" style="font-weight: bold">Cash: $0</h3>
-    <!--Helpers-->
-    <hr>
-    <h4 class="text-center">Helpers</h4>
-    <hr>
-    <div class="text-center upgradeleft" style="bottom: 25%">
-        <h3>Random Citizen</h3>
-        <h5>Likes to stomp on rats.</h5>
-        <h6 id="level1">Own: 0</h6>
-        <h5 style="color: greenyellow;" id="cost1">$10</h5>
-        <button id="btn1" onclick="upgrade(shop['citizen'])">Buy</button>
-    </div>
-    <div class="text-center upgraderight" style="bottom: 25%">
-        <h3>Person w/ Big Boot</h3>
-        <h5>Can stomp on more rats</h5>
-        <h6 id="level2">Own: 0</h6>
-        <h5 style="color: greenyellow;" id="cost2">$50</h5>
-        <button id="btn2" onclick="upgrade(shop['boot'])">Buy</button>
-    </div>
-    <div class="text-center upgradeleft"
-        style="bottom:0%">
-        <h3>Dennis</h3>
-        <h5>The biggest, spikiest boot there is. Hired to assassinate rats.</h5>
-        <h6 id="level3">Own: 0</h6>
-        <h5 style="color: greenyellow;" id="cost3">$250</h5>
-        <button id="btn3" onclick="upgrade(shop['dennis'])">Buy</button>
-    </div>
-    <div class="text-center upgraderight"
-        style="bottom:0%">
-        <h3>Person with RPG</h3>
-        <h5>Illegal? Possibly. Effective? Absolutely.</h5>
-        <h6 id="level4">Own: 0</h6>
-        <h5 style="color: greenyellow;" id="cost4">$1,000</h5>
-        <button id="btn4" onclick="upgrade(shop['rpg'])">Buy</button>
-    </div>
-    <div class="text-center upgradeleft"
-        style="bottom:-25%;">
-        <h3>Basic Exterminator</h3>
-        <h5>They do a decent enough job.</h5>
-        <h6 id="level5">Own: 0</h6>
-        <h5 style="color: greenyellow;" id="cost5">$10,000</h5>
-        <button id="btn5" onclick="upgrade(shop['basic'])">Buy</button>
-    </div>
-    <div class="text-center upgraderight"
-        style="bottom:-25%;">
-        <h3>Cool Exterminator</h3>
-        <h5>Only a little better cause he's cooler</h5>
-        <h6 id="level6">Own: 0</h6>
-        <h5 style="color: greenyellow;" id="cost6">$50,000</h5>
-        <button id="btn6" onclick="upgrade(shop['cool'])">Buy</button>
-    </div>
-    <div class="text-center upgradeleft"
-        style="bottom: -50%;">
-        <h3>Great Exterminator</h3>
-        <h5>They know a thing or two about rats.</h5>
-        <h6 id="level7">Own: 0</h6>
-        <h5 style="color: greenyellow;" id="cost7">$100,000</h5>
-        <button id="btn7" onclick="upgrade(shop['great'])">Buy</button>
-    </div>
-    <div class="text-center upgraderight"
-        style="bottom:-50%">
-        <h3>Amazing Exterminator</h3>
-        <h5>This is THE guy.</h5>
-        <h6 id="level8">Own: 0</h6>
-        <h5 style="color: greenyellow;" id="cost8">$500,000</h5>
-        <button id="btn8" onclick="upgrade(shop['amazing'])">Buy</button>
-    </div>
-    <br><br>
-    <!--Upgrades-->
-    <div class="text-center" style="position:absolute; width: 100%; bottom: -67%">
+    <body style="background-color: #0099ff;">
+        <h4 class="text-center" style="padding-inline: 3em">
+            THERE ARE SO MANY RATS AND THEY ALL HAVE THE BUBONIC PLAGUE AND THEY'RE GOING TO KILL EVERYONE IN NEW YORK
+            CITY!!!
+        </h4>
+        <h1
+            style="text-align: center; font-family:'Times New Roman', Times, serif; font-weight: bold; font-size: 60px; color: aquamarine; font-style: italic;">
+            KILL THE RATS!!!!!
+        </h1>
+        <div class="text-center">
+            <input type="image" class src="https://i.postimg.cc/pTSVYD11/imageedit-16-6827671711.png"
+                style="cursor: pointer;" onclick="subtractrats(true)">
+        </div>
+        <h2 id="ratcount" class="text-center" style="font-weight: bold">Rats: 10,000,000,000</h2>
+        <h3 id="cashcount" class="text-center" style="font-weight: bold">Cash: $0</h3>
+        <!--Helpers-->
+        <hr class="parent">
+        <h4 class="text-center">Helpers</h4>
         <hr>
-        <h4 class="text-center">Upgrades</h4>
-        <hr>
-    </div>
-    <div class="text-center upgradeleft"
-        style="bottom: -90%;">
-        <h3>BIGGER Weaponry</h3>
-        <h5>Bigger = Better</h5>
-        <h6 id="level9">Own: 0</h6>
-        <h5 style="color: greenyellow;" id="cost9">$1,000</h5>
-        <button id="btn9" onclick="upgrade(shop['bigger'])">Buy</button>
-    </div>
-    <div class="text-center upgraderight"
-        style="bottom: -90%;">
-        <h3>Fear Mongering</h3>
-        <h5>Without us, you would all be dead. Now pay up.</h5>
-        <h6 id="level10">Own: 0</h6>
-        <h5 style="color: greenyellow;" id="cost10">$500</h5>
-        <button id="btn10" onclick="upgrade(shop['fearmon'])">Buy</button>
-    </div>
-    <div class="text-center upgradeleft"
-        style="bottom: -115%;">
-        <h3>Click Embiggenator</h3>
-        <h5>Wouldn't want to wear out those old, tired fingers of yours</h5>
-        <h6 id="level11">Own: 0</h6>
-        <h5 style="color: greenyellow;" id="cost11">$1,000</h5>
-        <button id="btn11" onclick="upgrade(shop['click'])">Buy</button>
-    </div>
-    <div class="text-center upgraderight"
-        style="bottom: -115%;">
-        <h3>Weapon HUMONGINATOR</h3>
-        <h5>HUMUNGOUS weapons.</h5>
-        <h6 id="level12">Own: 0</h6>
-        <h5 style="color: greenyellow;" id="cost12">$1,000,000</h5>
-        <button id="btn12" onclick="upgrade(shop['humon'])">Buy</button>
-    </div>
-</body>
+        <div class="parent">
+            <div class="text-center upgradeleft">
+                <h3>Random Citizen</h3>
+                <h5>Likes to stomp on rats.</h5>
+                <h6 id="level1">Own: 0</h6>
+                <h5 style="color: greenyellow;" id="cost1">$10</h5>
+                <button id="btn1" onclick="upgrade(shop['citizen'])">Buy</button>
+            </div>
+            <div class="text-center upgraderight">
+                <h3>Person w/ Big Boot</h3>
+                <h5>Can stomp on even more rats.</h5>
+                <h6 id="level2">Own: 0</h6>
+                <h5 style="color: greenyellow;" id="cost2">$50</h5>
+                <button id="btn2" onclick="upgrade(shop['boot'])">Buy</button>
+            </div>
+        </div>
+        <div class="parent">
+            <div class="text-center upgradeleft">
+                <h3>Dennis</h3>
+                <h5>The biggest, spikiest boot there is. Hired to assassinate rats.</h5>
+                <h6 id="level3">Own: 0</h6>
+                <h5 style="color: greenyellow;" id="cost3">$250</h5>
+                <button id="btn3" onclick="upgrade(shop['dennis'])">Buy</button>
+            </div>
+            <div class="text-center upgraderight">
+                <h3>Person with RPG</h3>
+                <h5>Illegal? Possibly. Effective? Absolutely.</h5>
+                <h6 id="level4">Own: 0</h6>
+                <h5 style="color: greenyellow;" id="cost4">$1,000</h5>
+                <button id="btn4" onclick="upgrade(shop['rpg'])">Buy</button>
+            </div>
+        </div>
+        <div class="parent">
+            <div class="text-center upgradeleft">
+                <h3>Basic Exterminator</h3>
+                <h5>They do a decent enough job.</h5>
+                <h6 id="level5">Own: 0</h6>
+                <h5 style="color: greenyellow;" id="cost5">$10,000</h5>
+                <button id="btn5" onclick="upgrade(shop['basic'])">Buy</button>
+            </div>
+            <div class="text-center upgraderight">
+                <h3>Cool Exterminator</h3>
+                <h5>Only a little better cause he's cooler</h5>
+                <h6 id="level6">Own: 0</h6>
+                <h5 style="color: greenyellow;" id="cost6">$50,000</h5>
+                <button id="btn6" onclick="upgrade(shop['cool'])">Buy</button>
+            </div>
+        </div>
+        <div class="parent">
+            <div class="text-center upgradeleft">
+                <h3>Great Exterminator</h3>
+                <h5>They know a thing or two about rats.</h5>
+                <h6 id="level7">Own: 0</h6>
+                <h5 style="color: greenyellow;" id="cost7">$100,000</h5>
+                <button id="btn7" onclick="upgrade(shop['great'])">Buy</button>
+            </div>
+            <div class="text-center upgraderight">
+                <h3>Amazing Exterminator</h3>
+                <h5>This is THE guy.</h5>
+                <h6 id="level8">Own: 0</h6>
+                <h5 style="color: greenyellow;" id="cost8">$500,000</h5>
+                <button id="btn8" onclick="upgrade(shop['amazing'])">Buy</button>
+            </div>
+        </div>
+        <br><br>
+        <!--Upgrades-->
+        <div>
+            <hr class="parent">
+            <h4 class="text-center">Upgrades</h4>
+            <hr>
+        </div>
+        <div class="parent">
+            <div class="text-center upgradeleft">
+                <h3>BIGGER Weaponry</h3>
+                <h5>Bigger = Better</h5>
+                <h6 id="level9">Own: 0</h6>
+                <h5 style="color: greenyellow;" id="cost9">$1,000</h5>
+                <button id="btn9" onclick="upgrade(shop['bigger'])">Buy</button>
+            </div>
+            <div class="text-center upgraderight">
+                <h3>Fear Mongering</h3>
+                <h5>Without us, you would all be dead. Now pay up.</h5>
+                <h6 id="level10">Own: 0</h6>
+                <h5 style="color: greenyellow;" id="cost10">$500</h5>
+                <button id="btn10" onclick="upgrade(shop['fearmon'])">Buy</button>
+            </div>
+        </div>
+        <div class="parent">
+            <div class="text-center upgradeleft">
+                <h3>Click Embiggenator</h3>
+                <h5>Wouldn't want to wear out those old, tired fingers of yours</h5>
+                <h6 id="level11">Own: 0</h6>
+                <h5 style="color: greenyellow;" id="cost11">$1,000</h5>
+                <button id="btn11" onclick="upgrade(shop['click'])">Buy</button>
+            </div>
+            <div class="text-center upgraderight">
+                <h3>Weapon HUMONGINATOR</h3>
+                <h5>HUMUNGOUS weapons.</h5>
+                <h6 id="level12">Own: 0</h6>
+                <h5 style="color: greenyellow;" id="cost12">$1,000,000</h5>
+                <button id="btn12" onclick="upgrade(shop['humon'])">Buy</button>
+            </div>
+        </div>
+    </body>
 
 </html>
