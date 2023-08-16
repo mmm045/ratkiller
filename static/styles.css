@@ -6,28 +6,32 @@
     width: 35%;
     padding-inline: 1.25em;
     font-size: 1vw;
+    margin: 3em;
+
 }
 
 .upgraderight {
     position: absolute;
-    left: 60%;
+    right: 5%;
     border-style: solid;
     border-radius: 1em;
     width: 35%;
     padding-inline: 1.25em;
     font-size: 1vw;
+    margin: 3em;
 }
 
-body {
-    font-size: 100%
+.parent {
+    position: relative;
+    height: 18em
 }
 
 hr {
-    border: .125em solid black;
+    border:  solid black;
     width: 100%;
 }
 
 button {
     border-radius: .625em;
-    font-size: 1em;
+    font-size: 1.5vw;
 }
