@@ -52,7 +52,7 @@ function playratnoise() {
         var ratnoise = new Audio(src = 'sounds/rat' + soundchoose + '.mp3');
     }
     else {
-        soundchoose = Math.floor((Math.random() * 3) + 16);
+        soundchoose = Math.floor((Math.random() * 2) + 16);
         var ratnoise = new Audio(src = 'sounds/rat' + soundchoose + '.mp3');
     }
     ratnoise.play();
